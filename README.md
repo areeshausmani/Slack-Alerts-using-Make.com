@@ -5,7 +5,7 @@ I built this as a fresher to learn how Make.com connects multiple tools without 
 
 ---
 
-## What this workflow does (in simple terms)
+## What this workflow does
 
 1. **Listens for email replies** – When a new reply arrives, Make.com receives it automatically.  
 2. **Asks GPT-4 to read it** – The AI decides whether it’s *Positive*, *Not Interested*, or an *Unsubscribe* request.  
