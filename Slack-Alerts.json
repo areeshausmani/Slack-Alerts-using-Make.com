@@ -1,0 +1,90 @@
+{
+  "name": "Lead Categorization with Slack Alert",
+  "author": "areeshausmani93@gmail.com",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": 100001,
+        "maxResults": 1
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {"x": -180,"y": -60}
+      }
+    },
+    {
+      "id": 2,
+      "module": "openai-gpt-3:CreateCompletion",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": "YOUR_OPENAI_CONNECTION"
+      },
+      "mapper": {
+        "select": "chat",
+        "max_tokens": "300",
+        "temperature": "1",
+        "top_p": "1",
+        "n_completions": "1",
+        "response_format": "text",
+        "model": "gpt-4",
+        "messages": [
+          {
+            "role": "system",
+            "content": "Classify replies as Positive, Not Interested, or Unsubscribe. If unclear, mark as Positive. Respond in JSON format."
+          },
+          {
+            "role": "user",
+            "content": "{{1.reply_text}}"
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {"x": 120,"y": -60}
+      }
+    },
+    {
+      "id": 3,
+      "module": "json:ParseJSON",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "json": "{{2.choices[].message.content}}"
+      },
+      "metadata": {
+        "designer": {"x": 430,"y": -60}
+      }
+    },
+    {
+      "id": 4,
+      "module": "slack:CreateMessage",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": "YOUR_SLACK_CONNECTION"
+      },
+      "mapper": {
+        "channelWType": "list",
+        "blocks": "{\n  \"blocks\": [\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"New lead categorized as *{{3.category}}* by AI: {{1.firstName}} {{1.lastName}}\"\n      }\n    }\n  ]\n}",
+        "mrkdwn": true,
+        "channelType": "private",
+        "channel": "YOUR_SLACK_CHANNEL_ID"
+      },
+      "metadata": {
+        "designer": {"x": 740,"y": -60}
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true
+    },
+    "zone": "us1.make.com"
+  }
+}
