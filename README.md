@@ -40,7 +40,7 @@ so they can follow up faster.
 
 ## Files included
 
-- `Slack-Alerts-using-Make.com.json` – cleaned Make.com workflow export  
+- `Slack-Alerts.json` – cleaned Make.com workflow export  
 - `helper.py` – simple Python script to test email categorization logic locally  
 - `Slack-Alerts-using-Make.com.png` – screenshot showing Slack alert example  
 
