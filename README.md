@@ -40,14 +40,14 @@ so they can follow up faster.
 
 ## Files included
 
-- `Slack-Alerts.json` – cleaned Make.com workflow export  
+- `Slack-Alerts.json` – Make.com workflow export  
 - `helper.py` – simple Python script to test email categorization logic locally  
-- `Slack-Alerts-using-Make.com.png` – screenshot showing Slack alert example  
+- `Slack-Alerts-using-Make.com.png` – screenshot showing Slack workflow example  
 
 ---
 
 ## How to use
 
-1. Import `lead_categorization_slack.json` into Make.com.  
+1. Import `Slack-Alerts.json` into Make.com.  
 2. Replace connections (`areeshausmani93_connection`) with your own Slack and OpenAI credentials.  
 3. Run the scenario — every new email reply will be analyzed and sent to Slack automatically.  
